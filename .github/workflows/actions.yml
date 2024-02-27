@@ -13,7 +13,7 @@ jobs:
           echo "${{ secrets.PROD_KEY }}" > ~/prod_key.pem
           chmod 600 ~/prod_key.pem
           cd ${{ github.workspace }}
-          echo "Action desplegant a produccio" > ./web/last_deploy.txt
+          echo "Action desplegant a produccio" > ./web/rublormar-actions.daw.inspedralbes.cat/public_html/actions/last_deploy.txt
           date >> ./web/last_deploy.txt
           scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ./web/* ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}:/home/web/rublormar-actions.daw.inspedralbes.cat/public_html/actions
 
