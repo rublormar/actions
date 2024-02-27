@@ -1,5 +1,5 @@
 name: Preparant per producció
-run-name: ${{ github.actor }} està pujant l'aplicació a PROD  🚀
+run-name: ${{ github.actor }} està pujant l'aplicació a PROD
 on: [push]
 jobs:
   Pujar-a-produccio-amb-SCP:
