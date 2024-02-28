@@ -17,26 +17,3 @@ jobs:
           npm run build
           cd ${{ github.workspace }}
           scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ./web/vue-actions-prod/dist/* ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}:/home/a21rublormar/web/rublormar-actions.daw.inspedralbes.cat/public_html/web/
-
-      - name: Run eslint scanning
-        permissions:
-          contents: read
-          security-events: write
-          actions: read
-        steps:
-          - name: Checkout code
-            uses: actions/checkout@v4
-
-          - name: Install ESLint
-            run: |
-              cd ./web/vue-actions-prod
-              npm install eslint@8.10.0
-              npm install @microsoft/eslint-formatter-sarif@2.1.7
-
-          - name: Run ESLint
-            run: |
-              cd ./web/vue-actions-prod
-              npm install
-              npx eslint ./*
-
-            continue-on-error: true
