@@ -1,11 +1,18 @@
-name: Preparant per producció
-run-name: ${{ github.actor }} està pujant l'aplicació a PROD
-on: [push]
+name: Preparant per producció i executant ESLint
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  schedule:
+    - cron: "23 21 * * 0"
+
 jobs:
   Pujar-a-produccio-amb-SCP:
+    name: Pujar a producció amb SCP i executar ESLint
     runs-on: ubuntu-latest
     steps:
-      - name: Obtenint el codi del respositori
+      - name: Obtenint el codi del repositori
         uses: actions/checkout@v4
 
       - name: scp a produccio
@@ -17,3 +24,17 @@ jobs:
           npm run build
           cd ${{ github.workspace }}
           scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ./web/vue-actions-prod/dist/* ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}:/home/a21rublormar/web/rublormar-actions.daw.inspedralbes.cat/public_html/web/
+
+      - name: Install ESLint
+        run: |
+          cd ./web/vue-actions-prod
+          npm install eslint@8.10.0
+          npm install @microsoft/eslint-formatter-sarif@2.1.7
+
+      - name: Run ESLint
+        run: |
+          cd ./web/vue-actions-prod
+          npm install
+          npx eslint ./*
+
+        continue-on-error: true
