@@ -15,7 +15,7 @@ jobs:
       - name: Obtenint el codi del repositori
         uses: actions/checkout@v4
 
-      - name: scp a produccio
+      - name: scp a producció
         run: |
           echo "${{ secrets.PROD_KEY }}" > ~/prod_key.pem
           chmod 600 ~/prod_key.pem
