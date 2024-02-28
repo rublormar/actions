@@ -16,7 +16,6 @@ jobs:
           npm install
           npm run build
           cd ${{ github.workspace }}
-          scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ./web/vue-actions-prod/dist/
-          ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}:/home/a21rublormar/web/rublormar-actions.daw.inspedralbes.cat/public_html/web/
+          scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ./web/vue-actions-prod/dist/ ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}:/home/a21rublormar/web/rublormar-actions.daw.inspedralbes.cat/public_html/web/
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
